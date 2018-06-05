@@ -9,8 +9,8 @@ class App extends Component {
     super(props);
     let currentTime = new Date(1997,10,24,1,1,1,1);
     this.state = {
-      todos: [{description: 'default', dateDue: currentTime.toString(), isComplete: true, _id: 0, color: "black"},
-      {description: 'default2', dateDue: null, isComplete: false, _id: 1, color: "black"}],
+      todos: [{description: 'default', dateDue: currentTime.toString(), isComplete: true, _id: 0, color: "black", star: false},
+      {description: 'default2', dateDue: null, isComplete: false, _id: 1, color: "black", star: false}],
       input: "",
       date: Date.now(),
       counter: 2,
@@ -26,7 +26,7 @@ class App extends Component {
   onAddToDo = event =>{
     event.preventDefault();
     //description = event.
-      let newToDo = {description: this.state.input, dateDue: null, isComplete: false, _id: this.state.counter, color: "black"};
+      let newToDo = {description: this.state.input, dateDue: null, isComplete: false, _id: this.state.counter, color: "black", star: false};
       let todos = [...this.state.todos];
       todos.push(newToDo);
       this.setState({...this.state, todos:todos, counter:this.state.counter+1});
@@ -95,6 +95,13 @@ class App extends Component {
     this.setState({...this.state, todos:todos})
   }
 
+  setStar = id => {
+    let todos = [...this.state.todos];
+    let todo = todos.find((todo)=>todo._id===id);
+    todo.star = (todo.star) ? false : true;
+    this.setState({...this.state, todos:todos})
+  }
+
   render() {
     return (
       <div>
@@ -105,7 +112,7 @@ class App extends Component {
       ordering={this.state.ordering}
         setOrdering={this.setOrdering} setOrderingByDate={this.setOrderingByDate}
         deleteAll={this.deleteAll} setColor={this.setColor}
-        color={this.state.color}/>
+        color={this.state.color} setStar={this.setStar}/>
       </div>
     );
   }

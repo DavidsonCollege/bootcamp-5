@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {CSVLink, CSVDownload} from 'react-csv';
 
 // function Todo(props){
 //   return (<div> clssName="todo" {props.value.description}</div>);
@@ -23,6 +24,11 @@ class Todos extends Component {
   render(){
     let completed = this.props.todos.filter(function (todo) {return todo.isComplete === true});
     let uncompleted = this.props.todos.filter(function (todo) {return todo.isComplete === false});
+    let starStyle = {
+      color: "yellow",
+      fontSize: "36px",
+      background:"white"
+    }
     if(this.props.ordering==="alphabetically"){
       completed = this.reorder(completed);
       uncompleted = this.reorder(uncompleted);
@@ -51,7 +57,8 @@ class Todos extends Component {
               {todo.dateDue ? (<div>{todo.dateDue}</div>) : (
                 <div>
                   <div>Due date not set</div>
-                    <input id="date" type="date"/>
+                    <input id="date" type="datetime-local" onChange={this.props.changeDate}/>
+                    <button onClick={(event)=>this.props.setDate(event, todo._id)}>Set Due Date</button>
                 </div>
 
               )}
@@ -66,6 +73,9 @@ class Todos extends Component {
                 <option value="aqua">aqua</option>
                 <option value="indigo">indigo</option>
               </select>
+              <br></br>
+                {todo.star ? <h style={starStyle} onClick={()=>this.props.setStar(todo._id)}>&#9733;</h> :
+                <h style={starStyle} onClick={()=>this.props.setStar(todo._id)}>&#9734;</h> }
             </div>);
         })
       }
@@ -86,6 +96,7 @@ class Todos extends Component {
                 )}
                 <button onClick={()=>this.props.onDeleteTodo(todo._id)}>Delete</button>
                 <button onClick={()=>this.props.markAsComplete(todo._id)}>Mark as completed</button>
+
                 <select onChange={(event)=>this.props.setColor(event, todo._id)}>
                   <option value="black">black</option>
                   <option value="red">red</option>
@@ -95,6 +106,9 @@ class Todos extends Component {
                   <option value="aqua">aqua</option>
                   <option value="indigo">indigo</option>
                 </select>
+                <br></br>
+                  {todo.star ? <h style={starStyle} onClick={()=>this.props.setStar(todo._id)}>&#9733;</h> :
+                  <h style={starStyle} onClick={()=>this.props.setStar(todo._id)}>&#9734;</h> }
               </div>);
           })
         }
@@ -107,6 +121,7 @@ class Todos extends Component {
       </div>
       <div>
           <button onClick={this.props.deleteAll}>Delete all todos</button>
+          <CSVLink data={this.props.todos}>Download</CSVLink>
       </div>
       </div>
     );
