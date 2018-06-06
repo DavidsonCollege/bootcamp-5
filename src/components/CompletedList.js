@@ -1,27 +1,23 @@
-import React from 'react';
+import { Component } from "react";
 
-class CompletedList extends React.Component{
+const CompletedList = ({ handleToIncomplete, todos, completed }) => {
+  return (
+    <div>
+      <h3> Completed Todos </h3>
+      <ol>
+        {completed.map(todo => (
+          <li key={todo._guid}>
+            {todo.description} Completed: {todo.completed}
+            <button onClick={handleToIncomplete} value={todo._guid}>
+              Toggle Status
+            </button>
+            <br />
+            <button onClick={() => handleDelete(todo)}>Remove</button>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div>
-        <h3> Completed Todos </h3>
-        <ol>
-          {this.props.completed.map((todo) => {
-            return <li key={todo._guid}>{todo.description} Completed: {todo.completed}
-            <button onClick={this.props.handleToIncomplete}
-            value={todo._guid}>Toggle Status</button>
-            <br></br>
-            <button onClick={() => this.props.handleDelete(todo)}
-        >Remove</button>
-
-            </li>
-          })}
-        </ol>
-
-      </div>
-    )
-  }
-
-}
 export default CompletedList;
