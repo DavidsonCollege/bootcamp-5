@@ -1,0 +1,54 @@
+body {
+  font-family: sans-serif;
+}
+
+.desc {
+  font-weight: bold;
+  font-size: 30px;
+}
+.black{
+  color: black;
+}
+.green{
+  color: green;
+}
+.blue{
+  color: blue;
+}
+.red{
+  color: red;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 50px 30px 50px;
+
+
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+
+}
+
+.listFolder {
+  border: 1px solid black;
+  margin-top: 15px;
+  padding: 10px;
+}
+
+.star{
+  font-size: 50px;
+
+  color: #f4cd42;
+}
+
+ul{
+  list-style: none;
+  padding-left: 0;
+}
